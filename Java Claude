@@ -1,0 +1,425 @@
+# 🚀 Core Java Interview Preparation - Topic 1
+
+## **Object-Oriented Programming (OOPs) Concepts**
+
+Let's start with the most important topic - **OOPs**. This is the foundation of Java, and it's 100% asked in interviews.
+
+---
+
+## **1. ENCAPSULATION (Data Hiding)**
+
+### **What is it?**
+Encapsulation means wrapping data (variables) and code (methods) together in a single unit (class), and hiding sensitive data from the outside world.
+
+### **How to achieve it?**
+- Make variables **private**
+- Provide public **getter/setter methods**
+
+### **Real Example:**
+```java
+public class BankAccount {
+    private double balance;  // Private - no direct access
+    private String accountNumber;
+    
+    // Constructor
+    public BankAccount(String accountNumber, double initialBalance) {
+        this.accountNumber = accountNumber;
+        this.balance = initialBalance;
+    }
+    
+    // Getter - for reading
+    public double getBalance() {
+        return balance;
+    }
+    
+    // Setter with validation - controlled access
+    public void deposit(double amount) {
+        if(amount > 0) {
+            balance += amount;
+            System.out.println("Deposited: " + amount);
+        } else {
+            System.out.println("Invalid amount!");
+        }
+    }
+    
+    public void withdraw(double amount) {
+        if(amount > 0 && amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrawn: " + amount);
+        } else {
+            System.out.println("Insufficient balance or invalid amount!");
+        }
+    }
+    
+    // accountNumber is read-only (no setter)
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+}
+```
+
+### **Why Encapsulation? (Benefits)**
+1. **Data Security** - Direct access prevented, validation added
+2. **Flexibility** - Internal implementation can change without affecting outside code
+3. **Control** - You decide what to expose and what to hide
+4. **Read-only/Write-only** - Can make fields read-only (only getter) or write-only (only setter)
+
+### **Tricky Interview Questions:**
+
+**Q1: Can we achieve 100% encapsulation in Java?**
+**Answer:** Yes! Make all variables private and provide only public getters/setters. Don't expose any internal data structures directly.
+
+**Q2: What's the difference between Encapsulation and Abstraction?**
+**Answer:** 
+- **Encapsulation** = Data hiding (HOW you hide - using private variables, getters/setters)
+- **Abstraction** = Implementation hiding (WHAT you hide - showing only essential features, hiding complexity)
+
+**Q3: If everything is private, how is it different from having no access at all?**
+**Answer:** With encapsulation, we provide **controlled access** through methods. We can add validation, logging, security checks in getters/setters. Direct access would bypass all this.
+
+---
+
+## **2. INHERITANCE (IS-A Relationship)**
+
+### **What is it?**
+Inheritance allows one class to acquire properties and methods of another class. The child class inherits from the parent class.
+
+### **Types of Inheritance in Java:**
+1. **Single Inheritance** - One parent, one child
+2. **Multilevel Inheritance** - Child becomes parent for another child
+3. **Hierarchical Inheritance** - One parent, multiple children
+4. **Multiple Inheritance** - ❌ NOT supported via classes (but via interfaces)
+
+### **Real Example:**
+```java
+// Parent class
+public class Employee {
+    protected String name;
+    protected int empId;
+    protected double baseSalary;
+    
+    public Employee(String name, int empId, double baseSary) {
+        this.name = name;
+        this.empId = empId;
+        this.baseSalary = baseSalary;
+    }
+    
+    public void displayInfo() {
+        System.out.println("Employee: " + name);
+        System.out.println("ID: " + empId);
+    }
+    
+    public double calculateSalary() {
+        return baseSalary;
+    }
+}
+
+// Child class 1
+public class Developer extends Employee {
+    private String programmingLanguage;
+    private double bonusPerProject;
+    private int projectsCompleted;
+    
+    public Developer(String name, int empId, double baseSalary, 
+                     String language) {
+        super(name, empId, baseSalary);  // Call parent constructor
+        this.programmingLanguage = language;
+        this.bonusPerProject = 5000;
+    }
+    
+    // Method Overriding
+    @Override
+    public double calculateSalary() {
+        return baseSalary + (bonusPerProject * projectsCompleted);
+    }
+    
+    // New method specific to Developer
+    public void code() {
+        System.out.println(name + " is coding in " + programmingLanguage);
+    }
+    
+    public void setProjectsCompleted(int projects) {
+        this.projectsCompleted = projects;
+    }
+}
+
+// Child class 2
+public class Manager extends Employee {
+    private int teamSize;
+    private double incentivePerMember;
+    
+    public Manager(String name, int empId, double baseSalary, int teamSize) {
+        super(name, empId, baseSalary);
+        this.teamSize = teamSize;
+        this.incentivePerMember = 2000;
+    }
+    
+    @Override
+    public double calculateSalary() {
+        return baseSalary + (incentivePerMember * teamSize);
+    }
+    
+    public void conductMeeting() {
+        System.out.println(name + " is conducting a meeting with " + 
+                          teamSize + " members");
+    }
+}
+
+// Usage
+public class Main {
+    public static void main(String[] args) {
+        Developer dev = new Developer("Rahul", 101, 60000, "Java");
+        dev.setProjectsCompleted(3);
+        dev.displayInfo();  // Inherited method
+        dev.code();  // Own method
+        System.out.println("Salary: " + dev.calculateSalary());
+        
+        Manager mgr = new Manager("Priya", 201, 80000, 5);
+        mgr.displayInfo();  // Inherited method
+        mgr.conductMeeting();  // Own method
+        System.out.println("Salary: " + mgr.calculateSalary());
+    }
+}
+```
+
+### **Key Concepts:**
+
+**`super` keyword:**
+- Calls parent class constructor: `super(params)`
+- Calls parent class method: `super.methodName()`
+- Must be first line in child constructor
+
+**`protected` access modifier:**
+- Accessible in same package + child classes (even in different packages)
+- More accessible than private, less than public
+
+### **Tricky Interview Questions:**
+
+**Q1: Why doesn't Java support multiple inheritance through classes?**
+**Answer:** To avoid the **Diamond Problem**. 
+```
+     A
+    / \
+   B   C
+    \ /
+     D
+```
+If class D inherits from both B and C, and both B and C have the same method from A, which one should D use? This creates ambiguity. Java solved this by:
+- Not allowing multiple class inheritance
+- Allowing multiple interface inheritance (since interfaces only declare methods, no ambiguity)
+
+**Q2: Can we override static methods?**
+**Answer:** No! Static methods belong to the class, not objects. They are **hidden**, not overridden. This is called **Method Hiding**.
+```java
+class Parent {
+    static void display() {
+        System.out.println("Parent static");
+    }
+}
+
+class Child extends Parent {
+    static void display() {  // This is hiding, not overriding
+        System.out.println("Child static");
+    }
+}
+
+// Usage
+Parent p = new Child();
+p.display();  // Output: "Parent static" (based on reference type)
+```
+
+**Q3: Can we override private methods?**
+**Answer:** No! Private methods are not visible to child classes, so they cannot be overridden. Child class can have a method with same name, but it's a new method, not an override.
+
+**Q4: What happens if parent constructor throws an exception?**
+**Answer:** Child object creation fails. The child constructor implicitly calls `super()`, and if that fails, the child object is never created.
+
+**Q5: Can constructors be inherited?**
+**Answer:** No! Constructors are not inherited. Each class must define its own constructors. However, child constructors can call parent constructors using `super()`.
+
+---
+
+## **3. POLYMORPHISM (Many Forms)**
+
+### **What is it?**
+One entity (method/object) behaving differently in different situations.
+
+### **Types:**
+
+### **A) Compile-Time Polymorphism (Method Overloading)**
+
+Same method name, different parameters.
+
+```java
+public class Calculator {
+    // Different number of parameters
+    public int add(int a, int b) {
+        return a + b;
+    }
+    
+    public int add(int a, int b, int c) {
+        return a + b + c;
+    }
+    
+    // Different data types
+    public double add(double a, double b) {
+        return a + b;
+    }
+    
+    // Different order of parameters
+    public String add(String a, int b) {
+        return a + b;
+    }
+    
+    public String add(int a, String b) {
+        return a + b;
+    }
+}
+```
+
+**Rules for Method Overloading:**
+1. Method name must be same
+2. Parameter list must be different (type, number, or order)
+3. Return type can be different (but alone it's not enough)
+4. Access modifier can be different
+5. Can throw different exceptions
+
+### **B) Runtime Polymorphism (Method Overriding)**
+
+Child class provides specific implementation of parent class method.
+
+```java
+public class PaymentProcessor {
+    public void processPayment(double amount) {
+        System.out.println("Processing payment: " + amount);
+    }
+}
+
+public class CreditCardPayment extends PaymentProcessor {
+    @Override
+    public void processPayment(double amount) {
+        System.out.println("Processing Credit Card payment: " + amount);
+        System.out.println("Adding 2% processing fee");
+        // Credit card specific logic
+    }
+}
+
+public class UPIPayment extends PaymentProcessor {
+    @Override
+    public void processPayment(double amount) {
+        System.out.println("Processing UPI payment: " + amount);
+        System.out.println("Instant transfer, no fee");
+        // UPI specific logic
+    }
+}
+
+public class NetBankingPayment extends PaymentProcessor {
+    @Override
+    public void processPayment(double amount) {
+        System.out.println("Processing NetBanking payment: " + amount);
+        System.out.println("Redirecting to bank portal");
+        // NetBanking specific logic
+    }
+}
+
+// Real-world usage
+public class CheckoutService {
+    public void checkout(PaymentProcessor processor, double amount) {
+        // Same method call, different behavior at runtime
+        processor.processPayment(amount);
+    }
+    
+    public static void main(String[] args) {
+        CheckoutService service = new CheckoutService();
+        
+        // Runtime polymorphism in action
+        service.checkout(new CreditCardPayment(), 1000);
+        service.checkout(new UPIPayment(), 1000);
+        service.checkout(new NetBankingPayment(), 1000);
+    }
+}
+```
+
+**Rules for Method Overriding:**
+1. Method signature must be exactly same (name + parameters)
+2. Return type must be same or covariant (subtype)
+3. Access modifier cannot be more restrictive (can be less restrictive)
+4. Cannot override final, static, or private methods
+5. Can throw same, subclass, or no exception (but not broader exceptions)
+
+### **Tricky Interview Questions:**
+
+**Q1: What is the output?**
+```java
+class Parent {
+    public void display() {
+        System.out.println("Parent");
+    }
+}
+
+class Child extends Parent {
+    public void display() {
+        System.out.println("Child");
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Parent p = new Child();  // Upcasting
+        p.display();
+    }
+}
+```
+**Answer:** Output is "Child"
+**Why?** Method to be called is decided at runtime based on the **object type** (Child), not reference type (Parent). This is **Dynamic Method Dispatch**.
+
+**Q2: Can we overload main method?**
+**Answer:** Yes! But JVM will only call `public static void main(String[] args)`.
+```java
+public class Test {
+    public static void main(String[] args) {
+        System.out.println("Original main");
+        main(10);
+    }
+    
+    public static void main(int x) {  // Overloaded
+        System.out.println("Overloaded main: " + x);
+    }
+}
+```
+
+**Q3: Overloading vs Overriding - Key Differences:**
+
+| Feature | Overloading | Overriding |
+|---------|-------------|------------|
+| When decided | Compile-time | Runtime |
+| Where happens | Same class | Parent-Child |
+| Parameters | Must differ | Must be same |
+| Return type | Can differ | Must be same/covariant |
+| Access modifier | Can differ | Cannot be more restrictive |
+| static methods | Can be overloaded | Cannot be overridden (hidden instead) |
+| private methods | Can be overloaded | Cannot be overridden |
+
+**Q4: What is Covariant Return Type?**
+**Answer:** From Java 5, overriding method can return a subtype of the return type declared in parent.
+```java
+class Animal {
+    public Animal getAnimal() {
+        return new Animal();
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    public Dog getAnimal() {  // Dog is subtype of Animal
+        return new Dog();
+    }
+}
+```
+
+---
+
+## **4. ABSTRACTION (Hiding Complexity)**
+
+### **What is it?**
+Showing only essential features and hiding 
