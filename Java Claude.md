@@ -419,7 +419,257 @@ class Dog extends Animal {
 
 ---
 
-## **4. ABSTRACTION (Hiding Complexity)**
+4. ABSTRACTION (Hiding Complexity)
+What is it?
+Showing only essential features and hiding implementation details.
+How to achieve?
+Abstract Classes (0-100% abstraction)
+Interfaces (100% abstraction)
+A) Abstract Classes
+// Cannot instantiate abstract class
+public abstract class Vehicle {
+    protected String brand;
+    protected int year;
+    
+    // Concrete method (with implementation)
+    public Vehicle(String brand, int year) {
+        this.brand = brand;
+        this.year = year;
+    }
+    
+    // Concrete method
+    public void displayInfo() {
+        System.out.println("Brand: " + brand + ", Year: " + year);
+    }
+    
+    // Abstract method (no implementation)
+    public abstract void start();
+    public abstract void stop();
+    public abstract double calculateFuelEfficiency();
+}
 
-### **What is it?**
-Showing only essential features and hiding 
+public class Car extends Vehicle {
+    private int numberOfDoors;
+    
+    public Car(String brand, int year, int doors) {
+        super(brand, year);
+        this.numberOfDoors = doors;
+    }
+    
+    @Override
+    public void start() {
+        System.out.println("Car engine started with key");
+    }
+    
+    @Override
+    public void stop() {
+        System.out.println("Car engine stopped");
+    }
+    
+    @Override
+    public double calculateFuelEfficiency() {
+        return 15.5;  // km per liter
+    }
+}
+
+public class Bike extends Vehicle {
+    private boolean hasGear;
+    
+    public Bike(String brand, int year, boolean hasGear) {
+        super(brand, year);
+        this.hasGear = hasGear;
+    }
+    
+    @Override
+    public void start() {
+        System.out.println("Bike started with kick/self-start");
+    }
+    
+    @Override
+    public void stop() {
+        System.out.println("Bike stopped");
+    }
+    
+    @Override
+    public double calculateFuelEfficiency() {
+        return 45.0;  // km per liter
+    }
+}
+Key Points about Abstract Classes:
+Cannot create object of abstract class: new Vehicle() ❌
+Can have constructors (called by child classes)
+Can have both abstract and concrete methods
+Can have instance variables
+Can have static methods
+Use abstract keyword for class and methods
+B) Interfaces
+// Interface - 100% abstraction (before Java 8)
+public interface Payable {
+    // public static final by default
+    double TAX_RATE = 0.18;
+    
+    // public abstract by default
+    double calculatePayment();
+    void processPayment();
+}
+
+public interface Trackable {
+    String getTrackingId();
+    String getStatus();
+}
+
+// Class can implement multiple interfaces
+public class Order implements Payable, Trackable {
+    private String orderId;
+    private double amount;
+    private String status;
+    
+    public Order(String orderId, double amount) {
+        this.orderId = orderId;
+        this.amount = amount;
+        this.status = "PENDING";
+    }
+    
+    @Override
+    public double calculatePayment() {
+        return amount + (amount * TAX_RATE);
+    }
+    
+    @Override
+    public void processPayment() {
+        System.out.println("Processing payment for order: " + orderId);
+        System.out.println("Total amount: " + calculatePayment());
+        this.status = "PAID";
+    }
+    
+    @Override
+    public String getTrackingId() {
+        return orderId;
+    }
+    
+    @Override
+    public String getStatus() {
+        return status;
+    }
+}
+Java 8+ Interface Features:
+public interface ModernInterface {
+    // Abstract method (must be implemented)
+    void abstractMethod();
+    
+    // Default method (can be overridden, but not mandatory)
+    default void defaultMethod() {
+        System.out.println("This is default implementation");
+        helperMethod();  // Can call private methods
+    }
+    
+    // Static method (cannot be overridden)
+    static void staticMethod() {
+        System.out.println("Static method in interface");
+    }
+    
+    // Private method (Java 9+) - for code reuse within interface
+    private void helperMethod() {
+        System.out.println("Helper logic");
+    }
+}
+Tricky Interview Questions:
+Q1: Abstract Class vs Interface - When to use what?
+Abstract Class - Use when:
+You want to share code among related classes
+You need non-final or non-static fields
+You need constructors
+Classes are closely related (IS-A relationship)
+Example: Vehicle → Car, Bike (all are vehicles)
+Interface - Use when:
+Unrelated classes should implement same behavior
+You want to specify behavior, not implementation
+You need multiple inheritance
+Classes have CAN-DO relationship
+Example: Flyable → Bird, Airplane, Drone (can fly, but unrelated)
+Q2: Can interface extend another interface?
+Answer: Yes! Interface can extend one or more interfaces.
+interface A {
+    void methodA();
+}
+
+interface B {
+    void methodB();
+}
+
+interface C extends A, B {
+    void methodC();
+}
+
+// Class implementing C must implement all three methods
+class MyClass implements C {
+    public void methodA() { }
+    public void methodB() { }
+    public void methodC() { }
+}
+Q3: Can abstract class implement interface without implementing its methods?
+Answer: Yes! Abstract class doesn't need to implement interface methods. Child concrete class must implement them.
+interface Printable {
+    void print();
+}
+
+abstract class Document implements Printable {
+    // Not implementing print() - that's fine for abstract class
+    abstract void format();
+}
+
+class PDFDocument extends Document {
+    // Must implement both
+    public void print() {
+        System.out.println("Printing PDF");
+    }
+    
+    void format() {
+        System.out.println("Formatting PDF");
+    }
+}
+Q4: What if a class implements two interfaces with same default method?
+Answer: Compilation error! Class must override the method.
+interface A {
+    default void display() {
+        System.out.println("A");
+    }
+}
+
+interface B {
+    default void display() {
+        System.out.println("B");
+    }
+}
+
+class MyClass implements A, B {
+    @Override
+    public void display() {  // Must override
+        A.super.display();  // Can call specific interface's method
+        // or B.super.display();
+        // or your own implementation
+    }
+}
+Q5: Can we create object of interface?
+Answer: No direct instantiation, but YES using anonymous class or lambda!
+interface Greeting {
+    void sayHello(String name);
+}
+
+// Anonymous class
+Greeting g1 = new Greeting() {
+    @Override
+    public void sayHello(String name) {
+        System.out.println("Hello " + name);
+    }
+};
+
+// Lambda (functional interface)
+Greeting g2 = (name) -> System.out.println("Hello " + name);
+Want to continue with more OOPs concepts, or should we move to the next major topic? Let me know! 🚀
+We still have:
+Access Modifiers in detail
+final, static, this, super keywords
+Inner Classes
+Object class methods (equals, hashCode, toString, clone)
+Or we can move to Collections Framework, Multithreading
