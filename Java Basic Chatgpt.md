@@ -456,3 +456,258 @@ Then open it — it’ll look beautifully formatted on GitHub with headings, cod
 ---
 
 Would you like me to create the next Markdown section for **Spring & Spring Boot interview topics** next?
+
+Perfect 👌 — we’ll go topic by topic, in clean Markdown format, each one covering:
+
+Deep explanation
+
+Real-world examples
+
+Tricky interview questions
+
+Common pitfalls
+
+Best practices
+
+How it’s used in production
+
+
+Let’s begin with Core Java Fundamentals – Part 1.
+Below is your ready-to-paste Markdown (.md) version.
+
+
+---
+
+🧠 Core Java Fundamentals – Part 1
+
+🔹 Variables, Data Types, and OOP Basics
+
+
+---
+
+1. What is Java?
+
+Java is a platform-independent, object-oriented, high-level programming language that runs on the JVM (Java Virtual Machine).
+It’s designed for write once, run anywhere — meaning the same code runs on any OS that supports JVM.
+
+
+---
+
+2. Data Types in Java
+
+Primitive Data Types
+
+Type	Size	Example	Default Value
+
+byte	1 byte	127	0
+short	2 bytes	32000	0
+int	4 bytes	10000	0
+long	8 bytes	999999L	0L
+float	4 bytes	10.5f	0.0f
+double	8 bytes	12.56	0.0
+char	2 bytes	'A'	'\u0000'
+boolean	1 bit	true / false	false
+
+
+Reference Data Types
+
+Classes
+
+Interfaces
+
+Arrays
+
+Enums
+
+
+Stored in the heap (unlike primitives which are stored on the stack).
+
+
+---
+
+3. Variables
+
+Type	Description	Example
+
+Local	Declared inside a method or block	int count = 5;
+Instance	Declared inside a class but outside methods	private int age;
+Static	Shared across all instances of the class	static int counter;
+
+
+public class Counter {
+    static int count = 0;  // shared
+    int id;                // unique per object
+
+    Counter() {
+        count++;
+        id = count;
+    }
+}
+
+
+---
+
+4. Object-Oriented Programming (OOPs)
+
+a) Encapsulation
+
+Wrapping data and methods together in a single unit (class).
+Protects data by using private fields and exposing via getters/setters.
+
+public class BankAccount {
+    private double balance;
+
+    public double getBalance() { return balance; }
+    public void deposit(double amount) { balance += amount; }
+}
+
+🔸 Production use: Used in DTOs, domain models, and Spring Beans.
+🔸 Pitfall: Making everything public breaks encapsulation.
+
+
+---
+
+b) Inheritance
+
+Allows a class to acquire properties/methods of another class using extends.
+
+class Vehicle {
+    void start() { System.out.println("Starting..."); }
+}
+
+class Car extends Vehicle {
+    void honk() { System.out.println("Beep!"); }
+}
+
+🔸 Production use: Common in base controllers, entity hierarchies.
+🔸 Pitfall: Avoid deep inheritance chains (prefer composition).
+
+
+---
+
+c) Polymorphism
+
+Means “many forms.” Same interface, different behavior.
+
+Compile-time (Overloading):
+
+void add(int a, int b) { }
+void add(double a, double b) { }
+
+Runtime (Overriding):
+
+class Animal { void speak() { System.out.println("Animal sound"); } }
+class Dog extends Animal { void speak() { System.out.println("Bark"); } }
+
+🔸 Production use: Used heavily in Spring Beans (interface-driven design).
+🔸 Pitfall: Forgetting @Override leads to hidden bugs.
+
+
+---
+
+d) Abstraction
+
+Hiding internal implementation details and showing only necessary behavior.
+
+Achieved via abstract classes or interfaces.
+
+
+interface PaymentProcessor {
+    void pay(double amount);
+}
+
+🔸 Production use: Used for service contracts, DAO layers.
+🔸 Pitfall: Don’t make interfaces for every class; use only when you expect multiple implementations.
+
+
+---
+
+5. Common Pitfalls
+
+Using primitives instead of wrappers when null can occur.
+
+Forgetting to initialize instance variables before use.
+
+Overusing inheritance where composition would be cleaner.
+
+Forgetting to mark utility methods as static.
+
+
+
+---
+
+6. Tricky Interview Questions
+
+1. Q: What’s the difference between == and .equals()?
+A:
+
+== → compares references (memory address)
+
+.equals() → compares content (if overridden properly)
+
+
+String s1 = new String("hello");
+String s2 = new String("hello");
+System.out.println(s1 == s2);      // false
+System.out.println(s1.equals(s2)); // true
+
+
+2. Q: What’s the difference between final, finally, and finalize()?
+A:
+
+final → keyword (makes variable/method/class unchangeable)
+
+finally → block in exception handling that always executes
+
+finalize() → method called before GC (deprecated)
+
+
+
+3. Q: Can a constructor be final, static, or abstract?
+A: No. Constructors are not inherited, not overridden, and cannot be static.
+
+
+4. Q: What happens if you don’t define a constructor?
+A: Compiler adds a default no-arg constructor automatically.
+
+
+5. Q: Difference between primitive and wrapper types?
+A: Wrapper types (Integer, Double, etc.) are objects and can be null, support methods, and used in collections.
+
+
+
+
+---
+
+✅ Best Practices
+
+Use camelCase for variables, PascalCase for classes.
+
+Use meaningful variable names (balance, count, etc.)
+
+Prefer composition over inheritance in real-world design.
+
+Make class fields private and expose via getters/setters.
+
+Use immutable objects wherever possible (e.g., String).
+
+
+
+---
+
+🏗 How it’s used in Production
+
+DTOs and entities encapsulate fields with getters/setters.
+
+Services use interfaces for abstraction.
+
+Polymorphism enables clean dependency injection (Spring).
+
+Static utility classes (e.g., StringUtils, CollectionUtils).
+
+
+
+---
+
+Would you like me to continue next with
+Part 2 → Exception Handling & Memory Management (also in Markdown format, same structure)?
