@@ -1,11 +1,7 @@
-Bilkul Malaik.
-Chalo isko bilkul simple Hindi + simple examples me samjhte hain.
-Aapko ek-ek cheez crystal clear ho jaayegi.
-
 
 ---
 
-⭐ REST ( ... ) kya hota hai?
+⭐ REST ( ... ) 
 
 Rest = baaki sab cheeze ek saath ek box me jama kar lo.
 
