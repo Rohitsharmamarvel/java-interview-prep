@@ -852,3 +852,225 @@ NEXT PATTERN (Behavior control starts)
 This is where if-else starts dying.
 
 Say Next when ready.
+........................................
+
+
+......................................
+
+
+
+
+
+---
+
+DESIGN PATTERN #4
+
+🔹 Strategy Pattern
+
+(Killing if-else, enabling real extensibility)
+
+
+---
+
+1️⃣ ORIGINAL PROBLEM (Real-world, not theory)
+
+You write code like this 👇
+
+double calculateDiscount(User user, double amount) {
+
+    if (user.isPremium()) {
+        return amount * 0.8;
+    } else if (user.isFestivalOffer()) {
+        return amount * 0.7;
+    } else if (user.isEmployee()) {
+        return amount * 0.6;
+    }
+
+    return amount;
+}
+
+Problems:
+
+Logic grows endlessly
+
+Every new rule → modify method
+
+Hard to test
+
+Business rules tightly coupled
+
+
+This is code smell at scale.
+
+
+---
+
+2️⃣ NAIVE FIX (still wrong)
+
+Add more if-else.
+
+This works short-term.
+Fails long-term.
+
+
+---
+
+3️⃣ CORE IDEA OF STRATEGY
+
+> Encapsulate interchangeable behavior and switch it at runtime
+
+
+
+In simple words:
+
+Each algorithm = separate class
+
+Client decides which one to use
+
+No if-else
+
+
+
+---
+
+4️⃣ BASIC STRATEGY IMPLEMENTATION
+
+Step 1: Strategy interface
+
+public interface DiscountStrategy {
+    double apply(double amount);
+}
+
+Step 2: Concrete strategies
+
+public class PremiumDiscount implements DiscountStrategy {
+    public double apply(double amount) {
+        return amount * 0.8;
+    }
+}
+
+public class FestivalDiscount implements DiscountStrategy {
+    public double apply(double amount) {
+        return amount * 0.7;
+    }
+}
+
+Step 3: Context
+
+public class BillingService {
+
+    private DiscountStrategy strategy;
+
+    public BillingService(DiscountStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public double calculate(double amount) {
+        return strategy.apply(amount);
+    }
+}
+
+Usage:
+
+BillingService service =
+        new BillingService(new PremiumDiscount());
+
+service.calculate(1000);
+
+
+---
+
+5️⃣ WHAT PROBLEM DID STRATEGY SOLVE?
+
+✅ Removed if-else ✅ Open/Closed Principle ✅ Easy testing ✅ Runtime behavior change
+
+
+---
+
+6️⃣ SPRING + STRATEGY (REAL LIFE)
+
+@Component("PREMIUM")
+class PremiumDiscount implements DiscountStrategy {}
+
+@Component("FESTIVAL")
+class FestivalDiscount implements DiscountStrategy {}
+
+@Service
+class BillingService {
+
+    private final Map<String, DiscountStrategy> strategies;
+
+    BillingService(Map<String, DiscountStrategy> strategies) {
+        this.strategies = strategies;
+    }
+
+    double calculate(String type, double amount) {
+        return strategies.get(type).apply(amount);
+    }
+}
+
+This is enterprise-level strategy usage.
+
+
+---
+
+7️⃣ 25+ LPA INTERVIEW QUESTION (TRICKY)
+
+👉 Strategy vs Factory — difference?
+
+Correct answer:
+
+Factory chooses which object to create
+
+Strategy chooses which behavior to execute
+
+Factory often used once
+
+Strategy used throughout lifecycle
+
+
+
+---
+
+8️⃣ VERY TRICKY QUESTION
+
+👉 Can Strategy replace all if-else?
+
+Correct answer: ❌ No.
+Simple conditions don’t need Strategy.
+Use it when behavior changes frequently.
+
+
+---
+
+9️⃣ THINKING UPGRADE
+
+Strategy pattern becomes:
+
+Load balancing algorithms
+
+Retry strategies
+
+Authentication mechanisms
+
+Payment routing
+
+
+At system level:
+
+Circuit Breaker = Strategy + State
+
+Rate Limiting = Strategy
+
+
+Same thinking. Bigger scale.
+
+
+---
+
+QUICK CHECK (answer this)
+
+👉 When would Strategy be a bad choice?
+
+Reply in 2 lines.
+Next we go to Observer Pattern — where decoupling really starts.
