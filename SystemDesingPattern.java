@@ -1331,3 +1331,293 @@ QUICK CHECK (Answer this)
 
 Reply in 2–3 lines.
 Next we go to Decorator Pattern — controlled behavior extension without inheritance.
+
+
+........
+........
+
+
+
+
+
+
+
+
+........
+
+
+
+.........
+
+
+
+
+
+
+...........
+
+
+
+
+
+---
+
+DESIGN PATTERN #6
+
+🔹 Decorator Pattern
+
+(Adding behavior without breaking existing code)
+
+
+---
+
+1️⃣ ORIGINAL PROBLEM (Very common)
+
+You have a service:
+
+PaymentService paymentService;
+paymentService.pay();
+
+Now new requirements come:
+
+Add logging
+
+Add security check
+
+Add metrics
+
+Add retry
+
+Add audit
+
+
+First instinct 👇
+
+paymentService.pay();
+log();
+audit();
+
+Then:
+
+More features
+
+More logic
+
+Core code polluted
+
+
+
+---
+
+2️⃣ NAIVE SOLUTION (Inheritance – wrong turn)
+
+class LoggedPaymentService extends PaymentService {}
+class SecurePaymentService extends LoggedPaymentService {}
+class AuditedSecureLoggedPaymentService extends SecurePaymentService {}
+
+This leads to:
+
+Class explosion
+
+Rigid hierarchy
+
+Impossible combinations
+
+
+Inheritance breaks down fast.
+
+
+---
+
+3️⃣ CORE IDEA OF DECORATOR
+
+> Wrap an object to add behavior without modifying the original class
+
+
+
+Key points:
+
+Same interface
+
+Delegates work
+
+Adds behavior before/after
+
+
+
+---
+
+4️⃣ BASIC DECORATOR IMPLEMENTATION
+
+Step 1: Component interface
+
+public interface PaymentService {
+    void pay();
+}
+
+Step 2: Concrete component
+
+public class BasicPaymentService implements PaymentService {
+    public void pay() {
+        System.out.println("Payment done");
+    }
+}
+
+Step 3: Abstract decorator
+
+public abstract class PaymentDecorator implements PaymentService {
+    protected PaymentService paymentService;
+
+    protected PaymentDecorator(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
+}
+
+Step 4: Concrete decorators
+
+public class LoggingDecorator extends PaymentDecorator {
+    public LoggingDecorator(PaymentService ps) {
+        super(ps);
+    }
+
+    public void pay() {
+        System.out.println("Logging...");
+        paymentService.pay();
+    }
+}
+
+public class SecurityDecorator extends PaymentDecorator {
+    public SecurityDecorator(PaymentService ps) {
+        super(ps);
+    }
+
+    public void pay() {
+        System.out.println("Security check...");
+        paymentService.pay();
+    }
+}
+
+Usage
+
+PaymentService service =
+    new SecurityDecorator(
+        new LoggingDecorator(
+            new BasicPaymentService()
+        )
+    );
+
+service.pay();
+
+
+---
+
+5️⃣ WHAT PROBLEM DID DECORATOR SOLVE?
+
+✅ No modification to core class
+✅ No inheritance explosion
+✅ Flexible behavior combinations
+✅ Open/Closed Principle
+
+
+---
+
+6️⃣ REAL-WORLD JAVA EXAMPLE (Classic)
+
+Java I/O:
+
+InputStream in =
+    new BufferedInputStream(
+        new FileInputStream("file.txt")
+    );
+
+This is Decorator Pattern in pure form.
+
+
+---
+
+7️⃣ SPRING + DECORATOR (VERY IMPORTANT)
+
+Spring AOP uses Proxy + Decorator concept.
+
+Example:
+
+@Transactional
+
+@Retryable
+
+@Timed
+
+
+Spring wraps your service with decorators at runtime.
+
+You didn’t write them.
+But you used them.
+
+
+---
+
+8️⃣ 25+ LPA INTERVIEW QUESTION (TRICKY)
+
+👉 Decorator vs Inheritance?
+
+Correct answer:
+
+Inheritance → static behavior
+
+Decorator → dynamic behavior
+
+Decorator avoids class explosion
+
+Decorator follows composition over inheritance
+
+
+
+---
+
+9️⃣ WHEN NOT TO USE DECORATOR
+
+❌ If:
+
+Behavior doesn’t vary
+
+Simple logic
+
+Over-wrapping hurts readability
+
+
+Too many decorators = hard to debug.
+
+
+---
+
+10️⃣ THINKING UPGRADE
+
+Decorator leads to:
+
+Middleware
+
+Filters
+
+Interceptors
+
+Aspect-oriented programming
+
+
+At system level:
+
+API Gateway filters
+
+Request pipelines
+
+
+Same idea. Bigger scale.
+
+
+---
+
+QUICK CHECK (Answer this)
+
+👉 Why does Decorator scale better than inheritance?
+
+Reply in 2 lines.
+Next we go to Adapter Pattern — where integration pain is solved.
