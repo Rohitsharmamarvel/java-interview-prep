@@ -1,0 +1,346 @@
+🔹 PHASE 1: CORE JAVA (FOUNDATION → DEPTH)
+
+1️⃣ Java Basics
+
+⬜ JVM vs JRE vs JDK
+⬜ How Java is platform independent
+⬜ Bytecode & ClassLoader (high level)
+⬜ Stack vs Heap memory
+⬜ Pass by value (VERY IMPORTANT)
+⬜ Primitive vs Wrapper classes
+⬜ Autoboxing / Unboxing
+
+Interview Focus
+
+Why Java is pass-by-value only?
+
+Wrapper vs primitive performance?
+
+
+
+---
+
+2️⃣ OOP (VERY IMPORTANT)
+
+⬜ Encapsulation
+⬜ Inheritance
+⬜ Polymorphism (Overloading vs Overriding)
+⬜ Abstraction
+⬜ Interface vs Abstract class
+⬜ Composition vs Inheritance
+⬜ IS-A vs HAS-A
+⬜ SOLID principles (with examples)
+
+Depth (PBC Expectation) ⬜ Why composition is preferred
+⬜ Where inheritance breaks design
+⬜ Real-world OOP in service layer
+
+Interview Focus
+
+Which SOLID principle you violated in past project?
+
+
+
+---
+
+3️⃣ String (ALWAYS ASKED)
+
+⬜ String literal vs new String()
+⬜ String Pool
+⬜ Why String is immutable
+⬜ == vs equals()
+⬜ String vs StringBuilder vs StringBuffer
+⬜ intern()
+⬜ String concatenation
+⬜ Why String is best HashMap key
+
+Depth ⬜ String memory impact in high-traffic systems
+
+
+---
+
+4️⃣ equals() & hashCode()
+
+⬜ Contract rules
+⬜ Why both are needed
+⬜ What breaks if incorrect
+⬜ Mutable fields issue
+
+Depth ⬜ HashMap / HashSet real bugs
+⬜ Hibernate entity identity problem
+
+
+---
+
+5️⃣ Collections Framework (🔥 VERY IMPORTANT)
+
+⬜ List vs Set vs Map
+⬜ ArrayList vs LinkedList
+⬜ HashMap internal working
+⬜ HashMap resizing & collisions
+⬜ HashMap vs ConcurrentHashMap
+⬜ HashSet internal working
+⬜ TreeMap vs HashMap
+⬜ Fail-fast vs Fail-safe
+⬜ Comparator vs Comparable
+⬜ Immutable collections
+
+Depth ⬜ Time complexity trade-offs
+⬜ When HashMap becomes slow
+
+⭐ MUST MASTER
+
+
+---
+
+6️⃣ Exception Handling
+
+⬜ Checked vs Unchecked
+⬜ try-catch-finally
+⬜ try-with-resources
+⬜ Custom exceptions
+⬜ Exception vs Error
+⬜ Best practices
+
+Depth ⬜ Exception strategy in REST APIs
+
+
+---
+
+7️⃣ Multithreading & Concurrency (🔥 4 YOE CORE)
+
+⬜ Thread lifecycle
+⬜ Runnable vs Callable
+⬜ synchronized
+⬜ volatile
+⬜ ExecutorService
+⬜ Thread pools
+⬜ Future vs CompletableFuture
+⬜ Deadlock & race condition
+⬜ Atomic variables
+⬜ Concurrent collections
+
+Advanced (SYSTEM LEVEL) ⬜ Synchronous vs Asynchronous
+⬜ Blocking vs Non-blocking
+
+⭐ MUST MASTER
+
+
+---
+
+8️⃣ Java 8+ Features
+
+⬜ Lambda expressions
+⬜ Functional interfaces
+⬜ Stream API
+⬜ Intermediate vs Terminal ops
+⬜ Optional
+⬜ Method references
+⬜ Parallel streams (when NOT to use)
+
+
+---
+
+9️⃣ JVM Internals
+
+⬜ Class loading mechanism
+⬜ Garbage Collection basics
+⬜ G1 GC vs Parallel GC
+⬜ Memory leaks causes
+⬜ Heap tuning basics
+
+Depth ⬜ GC tuning impact on latency
+
+
+---
+
+🔹 PHASE 2: DESIGN PATTERNS (LLD BASE)
+
+⬜ Singleton
+⬜ Factory
+⬜ Strategy
+⬜ Observer
+⬜ Builder
+
+Depth ⬜ Where patterns are used in Java / Spring
+⬜ Machine Coding readiness
+
+
+---
+
+🔹 PHASE 3: SPRING & SPRING BOOT (BACKEND CORE)
+
+Spring Core
+
+⬜ What is Spring
+⬜ IOC & Dependency Injection
+⬜ Bean lifecycle
+⬜ Bean scopes
+⬜ @Component vs @Service vs @Repository
+⬜ Constructor vs Field injection
+⬜ @Qualifier
+
+
+---
+
+Spring Boot Core
+
+⬜ Why Spring Boot
+⬜ Auto-configuration
+⬜ Starter dependencies
+⬜ properties vs yml
+⬜ Profiles
+⬜ Embedded Tomcat
+⬜ @SpringBootApplication
+
+
+---
+
+REST APIs (🔥 EVERY INTERVIEW)
+
+⬜ @RestController
+⬜ @RequestMapping vs @GetMapping
+⬜ @PathVariable vs @RequestParam
+⬜ @RequestBody
+⬜ ResponseEntity
+⬜ HTTP methods & status codes
+⬜ Idempotency
+⬜ Pagination & sorting
+
+Depth ⬜ REST statelessness (WHY question)
+
+
+---
+
+Exception Handling (Spring)
+
+⬜ @ControllerAdvice
+⬜ @ExceptionHandler
+⬜ Global vs Local handling
+
+
+---
+
+Validation
+
+⬜ @Valid
+⬜ @NotNull, @Size, @Email
+⬜ Custom validators
+
+
+---
+
+Spring Data JPA / Hibernate (🔥 VERY IMPORTANT)
+
+⬜ Entity lifecycle
+⬜ Relationships
+⬜ FetchType LAZY vs EAGER
+⬜ Cascade types
+⬜ JPQL vs Native query
+⬜ Pagination
+⬜ Transactions
+⬜ @Transactional
+⬜ N+1 problem
+⬜ Optimistic vs Pessimistic locking
+
+Depth ⬜ First-level vs Second-level cache
+
+
+---
+
+Spring Boot Advanced
+
+⬜ Filters vs Interceptors
+⬜ AOP
+⬜ @Async
+⬜ Scheduling (Cron)
+⬜ Caching (Redis, @Cacheable)
+⬜ Spring Events
+
+Depth ⬜ Async mapping to system async
+
+
+---
+
+Security
+
+⬜ Authentication vs Authorization
+⬜ Spring Security flow
+⬜ JWT token flow
+⬜ Filter chain
+⬜ PasswordEncoder
+
+
+---
+
+🔹 PHASE 4: MICROSERVICES (PBC EXPECTATION)
+
+⬜ Monolith vs Microservices
+⬜ Inter-service communication
+⬜ RestTemplate vs WebClient
+⬜ Feign Client
+⬜ Circuit Breaker
+⬜ Retry & Timeout
+⬜ Distributed tracing
+⬜ Config management
+⬜ Service discovery
+
+Depth ⬜ Failure handling between services ⭐
+
+
+---
+
+🔹 PHASE 5: DATABASE (DEPTH)
+
+⬜ SQL vs NoSQL
+⬜ Indexing
+⬜ Normalization
+⬜ ACID properties
+⬜ Isolation levels
+⬜ Transactions
+⬜ Deadlocks
+⬜ Pagination strategies
+
+Advanced ⬜ Replication
+⬜ Sharding
+⬜ CAP theorem
+⬜ PACELC
+
+
+---
+
+🔹 PHASE 6: SYSTEM DESIGN (🔥 DEAL BREAKER)
+
+⬜ Functional vs Non-functional requirements
+⬜ Load balancing
+⬜ Caching strategies
+⬜ Database scaling
+⬜ Message queues
+⬜ Async processing
+⬜ Idempotency
+⬜ Rate limiting
+⬜ High availability
+
+Practice Systems
+
+⬜ URL Shortener
+⬜ Rate Limiter
+⬜ Notification System
+⬜ Chat System
+⬜ Ride Booking
+
+⭐ MUST MASTER
+
+
+---
+
+🔹 PHASE 7: CLOUD & PROD AWARENESS (BONUS)
+
+⬜ AWS EC2
+⬜ S3
+⬜ SQS / SNS
+⬜ Lambda
+⬜ IAM basics
+⬜ Docker basics
+⬜ CI/CD flow (basic)
+
