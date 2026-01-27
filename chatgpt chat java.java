@@ -1694,3 +1694,232 @@ If you want next:
 
 
 Tell me what to do next.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+
+.
+
+
+
+Short answer: yes, we still use both.
+Long answer: you use them differently, and interviews want to know why.
+
+Let’s break it down cleanly.
+
+
+---
+
+1️⃣ Comparable vs Comparator — core difference
+
+Comparable
+
+> Defines natural ordering of an object.
+
+
+
+Implemented inside the class
+
+Only one sorting logic
+
+Uses compareTo()
+
+
+class Employee implements Comparable<Employee> {
+    int id;
+
+    public int compareTo(Employee e) {
+        return this.id - e.id;
+    }
+}
+
+Now:
+
+Collections.sort(employeeList);
+
+Sorting happens by id automatically.
+
+
+---
+
+Comparator
+
+> Defines custom / external ordering.
+
+
+
+Implemented outside the class
+
+Can have multiple sorting logics
+
+Uses compare()
+
+
+Comparator<Employee> byName =
+    (e1, e2) -> e1.name.compareTo(e2.name);
+
+employeeList.sort(byName);
+
+
+---
+
+2️⃣ IS-A mental model (easy to remember)
+
+Comparable → “This object knows how to compare itself”
+
+Comparator → “Someone else tells how to compare two objects”
+
+
+
+---
+
+3️⃣ Do we STILL use these in real projects?
+
+Yes. All the time. But not always explicitly.
+
+Where Comparable is used today
+
+Entity natural order (id, createdAt)
+
+Sorting DTOs
+
+TreeSet / TreeMap keys
+
+
+TreeSet<Employee> set = new TreeSet<>();
+
+➡️ Needs Comparable or Comparator
+
+
+---
+
+Where Comparator is heavily used (MOST COMMON)
+
+Sorting API responses
+
+Multiple UI sort options
+
+Streams
+
+Pagination logic
+
+
+list.stream()
+    .sorted(Comparator.comparing(Employee::getSalary))
+
+This is everyday code.
+
+
+---
+
+4️⃣ Java 8+ changed how we write them
+
+Earlier (verbose):
+
+Collections.sort(list, new Comparator<Employee>() {
+    public int compare(Employee a, Employee b) {
+        return a.getAge() - b.getAge();
+    }
+});
+
+Now (clean):
+
+list.sort(Comparator.comparing(Employee::getAge));
+
+Still Comparator, just nicer syntax.
+
+
+---
+
+5️⃣ Interview traps & correct answers
+
+❓ Can we use both together?
+
+✅ Yes.
+
+Collections.sort(list, customComparator);
+
+Comparator overrides natural ordering.
+
+
+---
+
+❓ What if class doesn’t implement Comparable?
+
+No problem.
+Provide a Comparator.
+
+
+---
+
+❓ TreeSet without Comparable or Comparator?
+
+❌ Runtime exception
+ClassCastException
+
+
+---
+
+6️⃣ When to use which (REAL RULE)
+
+Use Comparable when:
+
+Natural order is obvious and fixed
+
+Only one sorting logic
+
+You control the class
+
+
+Use Comparator when:
+
+Multiple sorting strategies
+
+Class is external / third-party
+
+Sorting logic changes often
+
+
+
+---
+
+7️⃣ One-line interview-ready answer (memorize)
+
+> Comparable defines natural ordering inside the class using compareTo(), while Comparator provides external and flexible sorting logic using compare(). Both are still widely used, especially Comparator in Java 8 streams and APIs.
+
+
+
+
+---
+
+8️⃣ Bonus depth (senior-level line)
+
+> In modern Java, Comparator is preferred because it supports multiple sorting strategies and keeps domain models clean, while Comparable is mainly used for natural ordering and Tree-based collections.
+
+
+
+
+---
+
+If you want next:
+
+🧠 Comparator chaining (thenComparing)
+
+🔥 Sorting pitfalls & overflow bugs
+
+🎯 Live coding sorting problems
+
+
+Tell me what’s next.
