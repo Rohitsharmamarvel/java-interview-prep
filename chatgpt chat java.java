@@ -1923,3 +1923,345 @@ If you want next:
 
 
 Tell me what’s next.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+
+
+Bilkul.
+Ab Comparable vs Comparator ko zero se samjhte hain —
+jaise tum first time kisi junior ko samjha rahe ho aur interview me bol bhi sako.
+
+Main 5 sawalon ka jawab dunga:
+
+1. Ye kya cheez hai
+
+
+2. Ye class / interface / library kya hai
+
+
+3. Kab use karte hain
+
+
+4. Kyun use karte hain
+
+
+5. Aaj bhi use hote hain ya nahi
+
+
+
+Proper examples ke saath 👇
+
+
+---
+
+1️⃣ Sabse pehle: Ye hai kya?
+
+Comparable aur Comparator dono:
+
+👉 Interfaces hain
+👉 Java ki Collections Framework ka part hain
+👉 Objects ko compare / sort karne ke rules define karte hain
+
+❌ Ye class nahi hain
+❌ Ye library alag se nahi hoti
+
+
+---
+
+2️⃣ Comparable — ache se samjho
+
+Comparable kya hai?
+
+> Comparable ek interface hai jo batata hai ki ek object dusre object se kaise compare karega.
+
+
+
+Java puchta hai object se:
+
+> “Tum apne jaisa dusra object mile to kaise decide karoge kaun bada hai?”
+
+
+
+
+---
+
+Comparable ka method
+
+int compareTo(T other)
+
+Returns:
+
+0 → equal
+
++ve → current object bada
+
+-ve → current object chhota
+
+
+
+
+---
+
+Comparable ka proper example
+
+class Employee implements Comparable<Employee> {
+
+    int id;
+    String name;
+
+    Employee(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    @Override
+    public int compareTo(Employee e) {
+        return this.id - e.id; // natural order = id
+    }
+}
+
+Ab jab Java bole:
+
+Collections.sort(employeeList);
+
+Java internally bolega:
+
+> “Employee, tum hi batao kaise compare karna hai”
+
+
+
+
+---
+
+Kab Comparable use karte hain?
+
+Jab natural order fixed ho
+
+Jab sirf ek hi sorting logic ho
+
+Jab tum class ko control karte ho
+
+
+Real example
+
+User → sort by id
+
+Transaction → sort by createdAt
+
+
+
+---
+
+3️⃣ Comparator — ab ye samjho
+
+Comparator kya hai?
+
+> Comparator bhi interface hai,
+par ye object ke bahar comparison define karta hai.
+
+
+
+Simple words me:
+
+> “Object ko khud nahi pata, koi aur bata raha hai kaise compare karna hai”
+
+
+
+
+---
+
+Comparator ka method
+
+int compare(T o1, T o2)
+
+
+---
+
+Proper Comparator example
+
+Comparator<Employee> sortByName =
+    (e1, e2) -> e1.name.compareTo(e2.name);
+
+Use:
+
+employeeList.sort(sortByName);
+
+
+---
+
+Kab Comparator use karte hain?
+
+Jab multiple sorting chahiye
+
+Jab class third-party ho
+
+Jab sorting logic change hoti rehti ho
+
+
+
+---
+
+Real-world use
+
+UI me sort by name / salary / date
+
+API response sorting
+
+Pagination
+
+
+
+---
+
+4️⃣ Kyun zaroorat padi thi inki?
+
+Java me collections hain:
+
+List
+
+Set
+
+Map
+
+
+Java ko nahi pata:
+
+> “Employee kaun sa zyada bada hai?”
+
+
+
+Isliye:
+
+Comparable → object khud rule batata hai
+
+Comparator → external rule batata hai
+
+
+
+---
+
+5️⃣ Aaj bhi use hote hain ya outdated?
+
+💯 YES — heavily used
+
+Bas syntax change hua hai (Java 8 ke baad).
+
+
+---
+
+Old style (Java 6/7)
+
+Collections.sort(list, new Comparator<Employee>() {
+    public int compare(Employee a, Employee b) {
+        return a.age - b.age;
+    }
+});
+
+
+---
+
+Modern style (Java 8+)
+
+list.sort(Comparator.comparing(Employee::getAge));
+
+Still Comparator hi hai.
+
+
+---
+
+6️⃣ Comparable vs Comparator — direct comparison
+
+Point	Comparable	Comparator
+
+Type	Interface	Interface
+Defined where	Inside class	Outside class
+Method	compareTo()	compare()
+Sorting logic	One	Multiple
+Modifies class	Yes	No
+Used today	Yes	Yes (more)
+
+
+
+---
+
+7️⃣ Real interview confusion — clear karo
+
+❓ TreeSet / TreeMap me kya chahiye?
+
+Comparable ya
+
+Comparator
+
+
+Nahi to runtime exception ❌
+
+
+---
+
+❓ Dono saath use ho sakte hain?
+
+Yes. Comparator natural order override kar deta hai.
+
+
+---
+
+8️⃣ Ek perfect interview answer (memorize)
+
+> Comparable aur Comparator dono Java interfaces hain jo object comparison ke rules define karte hain. Comparable natural ordering define karta hai class ke andar, jabki Comparator external aur flexible sorting provide karta hai. Aaj ke projects me Comparator zyada use hota hai, especially Java 8 streams aur APIs ke saath.
+
+
+
+
+---
+
+9️⃣ Ek real-life analogy (easy yaad rakhne ke liye)
+
+Comparable = student khud bolta hai “meri rank ye hai”
+
+Comparator = teacher bolta hai “aaj height ke basis par line me lago”
+
+
+
+---
+
+Agar next chaho to:
+
+🔥 Comparator chaining (thenComparing)
+
+🧠 TreeMap / TreeSet deep dive
+
+🎯 Live coding sorting problems
+
+
+Batao, next kya karein.
