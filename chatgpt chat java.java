@@ -2523,3 +2523,372 @@ Agar chaho, next hum:
 
 
 Bas bolo, next kya chahiye.
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+
+Perfect. Neeche Exception Handling ko aise explain kar raha hoon ki tum direct notes bana sako aur interview me clean, confident answers de sako.
+Simple → structured → real-world.
+
+
+---
+
+Exception Handling (Clean Notes)
+
+1️⃣ Exception kya hota hai?
+
+> Exception ek runtime problem hoti hai jo program ke normal flow ko tod deti hai.
+
+
+
+Java me exception handling ka goal:
+
+Program crash na ho
+
+Error ko properly handle / report kiya ja sake
+
+
+
+---
+
+2️⃣ Checked vs Unchecked Exception
+
+✅ Checked Exception
+
+Compile-time pe check hoti hai
+
+Handle karna mandatory (try-catch / throws)
+
+
+Examples:
+
+IOException
+
+SQLException
+
+FileNotFoundException
+
+
+FileReader fr = new FileReader("a.txt"); // must handle
+
+👉 Use jab recover karna possible ho
+
+
+---
+
+✅ Unchecked Exception
+
+Runtime pe aati hai
+
+Handle karna mandatory nahi
+
+
+Examples:
+
+NullPointerException
+
+IllegalArgumentException
+
+ArrayIndexOutOfBoundsException
+
+
+String s = null;
+s.length(); // unchecked
+
+👉 Programming mistakes ko indicate karti hain
+
+
+---
+
+Interview one-liner
+
+> Checked exceptions force handling at compile time, while unchecked exceptions represent programming errors at runtime.
+
+
+
+
+---
+
+3️⃣ try–catch–finally
+
+Structure
+
+try {
+    // risky code
+} catch (Exception e) {
+    // handling
+} finally {
+    // always executes
+}
+
+finally kab chalta hai?
+
+Exception aaye ya na aaye
+
+Resource cleanup ke liye
+
+
+
+---
+
+Important point
+
+finally mostly chalta hai
+
+Sirf extreme cases me nahi (System.exit, JVM crash)
+
+
+
+---
+
+4️⃣ try-with-resources (Java 7+)
+
+Problem before
+
+finally me manually close()
+
+
+Solution
+
+try (FileReader fr = new FileReader("a.txt")) {
+    // use resource
+}
+
+Resource must implement AutoCloseable
+
+Automatically close hota hai
+
+
+👉 Preferred way for DB, file, stream
+
+
+---
+
+Interview line
+
+> try-with-resources ensures automatic resource cleanup and avoids resource leaks.
+
+
+
+
+---
+
+5️⃣ Custom Exceptions
+
+Kyun chahiye?
+
+Business-specific errors
+
+Clear error meaning
+
+
+
+---
+
+Example
+
+class InsufficientBalanceException extends RuntimeException {
+    public InsufficientBalanceException(String msg) {
+        super(msg);
+    }
+}
+
+Use:
+
+if(balance < amount) {
+    throw new InsufficientBalanceException("Low balance");
+}
+
+
+---
+
+Best practice
+
+Business errors → RuntimeException
+
+Avoid unnecessary checked exceptions
+
+
+
+---
+
+6️⃣ Exception vs Error
+
+Exception
+
+Application-level issues
+
+Can be handled
+
+
+Examples:
+
+NullPointerException
+
+IOException
+
+
+
+---
+
+Error
+
+JVM-level issues
+
+Should NOT be handled
+
+
+Examples:
+
+OutOfMemoryError
+
+StackOverflowError
+
+
+
+---
+
+Interview one-liner
+
+> Exceptions are recoverable application issues, while Errors indicate serious JVM problems and should not be caught.
+
+
+
+
+---
+
+7️⃣ Best Practices (VERY IMPORTANT)
+
+✅ Catch specific exceptions
+❌ Don’t catch generic Exception blindly
+
+✅ Log exception properly
+❌ Don’t swallow exceptions
+
+✅ Use custom exceptions for business logic
+❌ Don’t use exceptions for flow control
+
+✅ Preserve stack trace
+
+throw new CustomException("msg", e);
+
+
+---
+
+🔥 DEPTH: Exception Strategy in REST APIs (PBC Level)
+
+This is where many people fail.
+
+
+---
+
+❌ Bad REST exception handling
+
+Stack trace returned to client
+
+Always returning 500
+
+No meaningful message
+
+
+
+---
+
+✅ Good REST strategy (Spring Boot)
+
+1️⃣ Global Exception Handler
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ApiError> handleNotFound(ResourceNotFoundException ex) {
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(new ApiError(ex.getMessage()));
+    }
+}
+
+
+---
+
+2️⃣ Proper HTTP status codes
+
+Scenario	Status
+
+Invalid input	400
+Not found	404
+Unauthorized	401
+Business rule fail	422
+Server error	500
+
+
+
+---
+
+3️⃣ Standard error response
+
+{
+  "errorCode": "USER_NOT_FOUND",
+  "message": "User does not exist",
+  "timestamp": "2026-01-01"
+}
+
+
+---
+
+4️⃣ Logging rule
+
+Client → clean message
+
+Logs → full stack trace
+
+
+
+---
+
+Interview killer line
+
+> In REST APIs, exceptions should be handled centrally using global handlers, mapped to proper HTTP status codes, and should never expose internal stack traces to clients.
+
+
+
+
+---
+
+Final 30-sec Interview Summary (Memorize)
+
+> Java exception handling separates checked and unchecked exceptions. try-catch-finally and try-with-resources help manage failures and resources safely. Custom exceptions improve business clarity. Errors should not be caught. In REST APIs, exceptions must be handled globally with proper HTTP status codes and clean error responses.
+
+
+
+
+---
+
+If you want next:
+
+🔥 Spring Boot validation exceptions
+
+🧠 Transaction rollback & exceptions
+
+🎯 Exception-based interview MCQs
+
+
+Bolo, next kya chahiye.
