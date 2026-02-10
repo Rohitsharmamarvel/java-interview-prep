@@ -4173,3 +4173,533 @@ If you want next:
 
 
 Just tell me what to do next.
+
+
+ ................
+
+
+....
+
+.
+ 
+.
+ 
+.
+ 
+ 
+.
+ 
+.
+ 
+ 
+.
+ 
+ 
+ 
+Perfect. Ye system + backend fundamentals hain jo interviews me depth test karte hain.
+Main isko basic → advanced, notes-ready, aur interview-oriented way me explain kar raha hoon.
+
+Tum isko seedha notes / markdown me likh sakte ho.
+
+
+---
+
+Client–Server & Web Fundamentals (Interview Notes)
+
+
+---
+
+1️⃣ What is a Client–Server System
+
+Kya hota hai?
+
+> Client–server system me client request bhejta hai
+aur server request process karke response deta hai
+
+
+
+Examples
+
+Browser → Server (Google)
+
+Mobile app → Backend API
+
+Frontend → Microservice
+
+
+Roles
+
+Client: UI, request initiate
+
+Server: Business logic, DB, response
+
+
+Interview line
+
+> Client–server architecture separates concerns by delegating request handling to servers and presentation to clients.
+
+
+
+
+---
+
+2️⃣ API vs Web Service
+
+API (Application Programming Interface)
+
+Contract to interact with a system
+
+Can be:
+
+In-process
+
+Over network
+
+File based
+
+
+
+Example:
+
+Java API
+
+REST API
+
+AWS SDK
+
+
+
+---
+
+Web Service
+
+Always network based
+
+Uses HTTP/HTTPS
+
+Types:
+
+SOAP
+
+REST
+
+
+
+Relationship
+
+> All web services are APIs, but not all APIs are web services
+
+
+
+Interview line
+
+> API is a broader concept, while web services are APIs exposed over the network using standard protocols.
+
+
+
+
+---
+
+3️⃣ HTTP Request Lifecycle (VERY IMPORTANT)
+
+Full flow (end-to-end)
+
+1. DNS lookup
+
+Domain → IP
+
+
+
+2. Load Balancer
+
+Chooses healthy server
+
+
+
+3. Web Server
+
+Nginx / Apache
+
+
+
+4. Application Server
+
+Spring Boot / Node
+
+
+
+5. Database
+
+Query execution
+
+
+
+6. Response
+
+JSON sent back
+
+
+
+7. Client renders UI
+
+
+
+Interview line
+
+> An HTTP request flows through DNS resolution, load balancing, application processing, database access, and response serialization.
+
+
+
+
+---
+
+4️⃣ HTTP Methods
+
+Core methods
+
+Method	Purpose
+
+GET	Read
+POST	Create
+PUT	Full update
+PATCH	Partial update
+DELETE	Remove
+
+
+Interview trap
+
+GET should be idempotent
+
+PUT is idempotent
+
+POST is not idempotent
+
+
+
+---
+
+5️⃣ HTTP Status Codes
+
+Categories
+
+2xx → Success
+
+4xx → Client error
+
+5xx → Server error
+
+
+Common ones
+
+Code	Meaning
+
+200	OK
+201	Created
+400	Bad Request
+401	Unauthorized
+403	Forbidden
+404	Not Found
+500	Internal Error
+
+
+Interview line
+
+> Status codes communicate the outcome of HTTP requests clearly to clients.
+
+
+
+
+---
+
+6️⃣ REST Principles (Why Stateless)
+
+REST basics
+
+Stateless
+
+Resource based
+
+Uses HTTP methods
+
+Uniform interface
+
+
+Stateless ka matlab
+
+> Server client ka state store nahi karta
+
+
+
+Har request me:
+
+Auth token
+
+Required data
+
+
+Kyun stateless?
+
+Scalability
+
+Load balancing
+
+Fault tolerance
+
+
+Interview line
+
+> Statelessness allows REST services to scale horizontally and remain resilient.
+
+
+
+
+---
+
+7️⃣ HTTP/1.1 vs HTTP/2 vs HTTP/3 (High Level)
+
+HTTP/1.1
+
+One request per connection
+
+Head-of-line blocking
+
+
+
+---
+
+HTTP/2
+
+Multiplexing (multiple requests same connection)
+
+Header compression
+
+Faster page load
+
+
+
+---
+
+HTTP/3
+
+Built on QUIC (UDP)
+
+No TCP handshake
+
+Better for mobile & flaky networks
+
+
+Interview line
+
+> HTTP/2 improves performance using multiplexing, while HTTP/3 further reduces latency by running over QUIC on UDP.
+
+
+
+
+---
+
+8️⃣ TCP vs UDP (Reliability vs Speed)
+
+TCP
+
+Reliable
+
+Ordered
+
+Slower
+
+Used by HTTP, HTTPS
+
+
+
+---
+
+UDP
+
+Fast
+
+No guarantee
+
+No ordering
+
+Used by video streaming, gaming
+
+
+Interview line
+
+> TCP prioritizes reliability, while UDP prioritizes speed.
+
+
+
+
+---
+
+9️⃣ DNS Resolution Flow (IMPORTANT)
+
+Steps
+
+1. Browser cache
+
+
+2. OS cache
+
+
+3. Router cache
+
+
+4. ISP DNS
+
+
+5. Root server
+
+
+6. TLD server
+
+
+7. Authoritative server
+
+
+
+Finally → IP returned.
+
+Interview line
+
+> DNS resolution converts domain names to IP addresses using a hierarchical lookup process.
+
+
+
+
+---
+
+🔟 Latency vs Throughput
+
+Latency
+
+Time taken for one request
+
+Measured in ms
+
+
+Throughput
+
+Requests handled per second
+
+
+Example
+
+Low latency ≠ high throughput
+
+High throughput systems may still have high latency
+
+
+Interview line
+
+> Latency measures response time, while throughput measures system capacity.
+
+
+
+
+---
+
+1️⃣1️⃣ Serialization (JSON vs XML vs Protobuf)
+
+Serialization
+
+> Converting object → transferable format
+
+
+
+
+---
+
+JSON
+
+Lightweight
+
+Human readable
+
+Most common for REST
+
+
+
+---
+
+XML
+
+Verbose
+
+Schema support
+
+Legacy systems
+
+
+
+---
+
+Protobuf
+
+Binary
+
+Very fast
+
+Small size
+
+Used in gRPC
+
+
+
+---
+
+Interview line
+
+> JSON is widely used for REST APIs, XML for legacy systems, and Protobuf for high-performance internal communication.
+
+
+
+
+---
+
+🔥 Advanced Interview Traps
+
+❓ Why REST APIs prefer JSON?
+
+Lightweight
+
+Faster parsing
+
+Better frontend support
+
+
+
+---
+
+❓ Why microservices love statelessness?
+
+Easy scaling
+
+No session stickiness
+
+Fault tolerance
+
+
+
+---
+
+🔥 Final 60-second Interview Summary (Memorize)
+
+> Client–server systems separate concerns between request initiators and processors. APIs define interaction contracts, while web services expose them over the network. HTTP requests travel through DNS, load balancers, servers, and databases. REST principles emphasize statelessness for scalability. Modern protocols like HTTP/2 and HTTP/3 improve performance. TCP ensures reliability, UDP offers speed. Understanding latency, throughput, and serialization formats is critical for designing scalable backend systems.
+
+
+
+
+---
+
+If you want next:
+
+🧠 System design case study (API scale)
+
+🔥 Load balancer & caching deep dive
+
+🎯 Backend networking MCQs
+
+
+Bas bolo, next kya chahiye.
