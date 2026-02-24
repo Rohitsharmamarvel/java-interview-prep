@@ -1,0 +1,242 @@
+Good. Now we shift mindset.
+
+I am a hiring manager. I have your resume in front of me.
+I want to see depth, clarity, ownership, and design thinking — not just buzzwords.
+
+I’ll ask you real interview-style questions.
+After each question, I’ll also give you the model answer you should speak — clean, confident, impressive.
+
+
+---
+
+🔎 1️⃣ “Explain your current project architecture.”
+
+What I’m checking:
+
+Do you understand system design?
+
+Or did you just write APIs?
+
+
+✅ How you should answer:
+
+> “In Samsung R&D, we built backend services for Live TV and VoD platforms.
+Architecture is event-driven and microservices-based.
+
+Content metadata comes through external providers → processed via AWS Lambda → pushed to SQS → consumed by backend services built in Spring Boot and FastAPI.
+
+We validate metadata, transform it, store in internal DBs, and trigger downstream services using SNS.
+
+We also implemented RBAC, structured logging, and async workflows for scalability.”
+
+
+
+Short. Structured. Confident.
+
+
+---
+
+🔎 2️⃣ “Why did you use Microservices instead of Monolith?”
+
+What I’m checking:
+
+Do you understand trade-offs?
+
+
+✅ Strong answer:
+
+> “Because we had independent modules like metadata ingestion, CMS, VoD processing.
+They scale differently and evolve independently.
+
+Microservices helped us:
+
+Deploy independently
+
+Scale ingestion separately
+
+Isolate failures
+
+Improve team parallel development
+
+
+But we managed complexity using centralized logging and CI/CD pipelines.”
+
+
+
+Shows maturity — not blind microservices hype.
+
+
+---
+
+🔎 3️⃣ “Which design patterns have you used?”
+
+This is where most people fail.
+
+✅ You should say:
+
+> “In Spring Boot projects, I commonly used:
+
+Factory Pattern – for dynamic object creation (like strategy-based processing)
+
+Strategy Pattern – for handling different metadata validation logics
+
+Singleton – for configuration beans (managed by Spring container)
+
+Builder Pattern – for constructing complex DTO objects
+
+Observer pattern – event-driven workflows using SNS
+
+
+Spring itself internally uses Dependency Injection and Proxy patterns.”
+
+
+
+That sounds senior.
+
+
+---
+
+🔎 4️⃣ “How do you handle security?”
+
+Strong answer:
+
+> “We used JWT-based authentication.
+Access tokens were short-lived and refresh tokens handled renewal.
+Role-based access control ensured API-level authorization.
+Sensitive endpoints were protected using Spring Security filters.
+We also implemented audit trails and logging for compliance.”
+
+
+
+Short. Structured.
+
+
+---
+
+🔎 5️⃣ “How do you optimize performance?”
+
+Say this:
+
+> “We optimized at multiple levels:
+
+Used Redis for caching frequent reads
+
+Added DB indexing on high-traffic columns
+
+Used async processing for heavy operations
+
+Reduced unnecessary joins
+
+Monitored slow queries using execution plans
+
+Used pagination in APIs”
+
+
+
+
+Shows production thinking.
+
+
+---
+
+🔎 6️⃣ “Tell me about a production issue you handled.”
+
+Very important.
+
+Strong structured answer:
+
+> “We had an issue where metadata ingestion was delayed due to SQS backlog.
+I analyzed CloudWatch logs and found Lambda concurrency limits were throttling.
+We increased concurrency and optimized batch size.
+Result: 40% faster ingestion and no queue buildup.”
+
+
+
+Impact + ownership = strong hire signal.
+
+
+---
+
+🔎 7️⃣ “Why should we hire you?”
+
+Never say “I work hard”.
+
+Say:
+
+> “I bring strong backend fundamentals, production experience with AWS event-driven systems, and clean coding practices.
+I focus not just on writing code but on scalability, reliability, and maintainability.”
+
+
+
+Confident. No fluff.
+
+
+---
+
+🎯 Now — What I Look For As Hiring Manager
+
+When I hire:
+
+Can you explain clearly?
+
+Do you understand trade-offs?
+
+Do you take ownership?
+
+Do you understand system behavior?
+
+Can you debug production issues?
+
+Do you know WHY you used something — not just HOW?
+
+
+
+---
+
+🔥 Now I’ll Simulate Real Interview Rapid Fire
+
+Answer these out loud:
+
+1. What happens when SQS message fails?
+
+
+2. Why FastAPI + Spring Boot both?
+
+
+3. Difference between Redis and DB?
+
+
+4. How do you ensure idempotency?
+
+
+5. What is eventual consistency?
+
+
+6. How do you handle distributed transactions?
+
+
+7. Why use Lambda instead of EC2?
+
+
+8. What is CAP theorem?
+
+
+
+If you can answer these confidently — you’re strong.
+
+
+---
+
+Now tell me —
+Do you want:
+
+🔥 Rapid fire mock round
+
+🔥 System design round
+
+🔥 Behavioral round
+
+🔥 Deep Spring Boot round
+
+
+Pick one.
