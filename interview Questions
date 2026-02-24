@@ -239,4 +239,312 @@ Do you want:
 🔥 Deep Spring Boot round
 
 
-Pick one.
+.........
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+Good. Now we go serious.
+
+I’ll run this like a real interviewer.
+You read the question → then I give you the exact way you should answer.
+
+No fluff. Only strong answers.
+
+
+---
+
+🔥 ROUND 1: RAPID FIRE (Technical Depth)
+
+
+---
+
+1️⃣ What happens if SQS message processing fails?
+
+✅ Say this:
+
+> “If message processing fails, it becomes visible again after visibility timeout.
+If it fails multiple times beyond maxReceiveCount, it moves to Dead Letter Queue (DLQ).
+We monitor DLQ via CloudWatch and reprocess or analyze failed messages.”
+
+
+
+Shows AWS clarity.
+
+
+---
+
+2️⃣ Why FastAPI + Spring Boot both?
+
+✅ Say:
+
+> “FastAPI was used for lightweight async ingestion services where performance mattered.
+Spring Boot handled enterprise-grade APIs and integration workflows.
+We chose based on workload type and team expertise.”
+
+
+
+Balanced answer.
+
+
+---
+
+3️⃣ Redis vs Database?
+
+✅ Say:
+
+> “Redis is in-memory, extremely fast, used for caching and session storage.
+Database is persistent storage, used for long-term reliable data.
+Redis improves read performance and reduces DB load.”
+
+
+
+
+---
+
+4️⃣ What is Idempotency?
+
+✅ Say:
+
+> “Idempotency means multiple identical requests produce the same result.
+For example, PUT API or payment retry should not create duplicate records.
+We ensure it using unique keys or request IDs.”
+
+
+
+
+---
+
+5️⃣ What is Eventual Consistency?
+
+✅ Say:
+
+> “In distributed systems, data may not be immediately consistent across services,
+but eventually all systems become consistent.”
+
+
+
+Shows distributed knowledge.
+
+
+---
+
+🔥 ROUND 2: SYSTEM DESIGN THINKING
+
+
+---
+
+6️⃣ How would you design a scalable metadata ingestion system?
+
+Say structure:
+
+> API Gateway
+
+Authentication
+
+Lambda for ingestion
+
+SQS for buffering
+
+Worker service for processing
+
+DB for storage
+
+Redis for caching
+
+Monitoring + DLQ
+
+
+
+
+Short. Structured. Clean.
+
+
+---
+
+7️⃣ How do you handle high traffic?
+
+> Horizontal scaling
+
+Auto scaling groups
+
+Load balancer
+
+Caching
+
+Async processing
+
+DB indexing
+
+
+
+
+
+---
+
+🔥 ROUND 3: SPRING BOOT DEPTH
+
+
+---
+
+8️⃣ How does Spring Boot start internally?
+
+Strong answer:
+
+> “Spring Boot starts from main method → SpringApplication.run()
+It initializes ApplicationContext, scans components, creates beans,
+applies auto-configuration, then starts embedded server like Tomcat.”
+
+
+
+Clean. Clear.
+
+
+---
+
+9️⃣ How does @Transactional work internally?
+
+> “Spring uses AOP proxy.
+It wraps method inside a transaction boundary.
+If exception occurs → rollback.
+Otherwise → commit.”
+
+
+
+This sounds senior.
+
+
+---
+
+🔟 How do you prevent deadlock?
+
+> Consistent locking order
+
+Proper indexing
+
+Short transactions
+
+Lower isolation level
+
+
+
+
+
+---
+
+🔥 ROUND 4: BEHAVIORAL
+
+
+---
+
+1️⃣ Tell me about a challenge.
+
+Structure:
+
+> Situation
+Problem
+Action
+Result
+
+
+
+Example:
+
+> “We faced SQS backlog issue.
+I analyzed logs, found Lambda concurrency issue.
+Increased batch size + optimized processing.
+Reduced queue delay by 40%.”
+
+
+
+Structured answer wins interviews.
+
+
+---
+
+2️⃣ How do you handle pressure?
+
+> “I break problems into smaller parts, prioritize impact, and focus on solution rather than panic.”
+
+
+
+Simple and mature.
+
+
+---
+
+🔥 ROUND 5: DESIGN PATTERN QUESTION (Very Important)
+
+If they ask:
+“Which design patterns you used and why?”
+
+Say:
+
+> “Strategy pattern for dynamic processing logic.
+Factory for object creation abstraction.
+Builder for complex DTO creation.
+Singleton via Spring container.
+Observer pattern in event-driven SNS workflows.”
+
+
+
+Do NOT just name. Always add “why”.
+
+
+---
+
+🎯 FINAL TIP
+
+Interviewers look for:
+
+Clarity
+
+Ownership
+
+Trade-offs
+
+Real production exposure
+
+Not textbook answers
+
+
+You already have good experience.
+Now you just need delivery confidence.
+
+
+---
+
+Now we do live simulation.
+
+I’ll ask like real interviewer:
+
+👉 Explain CAP theorem.
+
+Answer.
+
+
+.
+
+
+.
+.
+.
