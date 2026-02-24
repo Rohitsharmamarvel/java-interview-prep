@@ -548,3 +548,58 @@ Answer.
 .
 .
 .
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+
+
+
+
+
+Good.
+
+❓ Explain CAP Theorem.
+
+✅ Say this clearly:
+
+> “CAP theorem states that in a distributed system, we can only guarantee two out of three properties: Consistency, Availability, and Partition Tolerance.
+
+Consistency means every read gets the latest write.
+
+Availability means every request gets a response.
+
+Partition Tolerance means the system continues working even if network failures happen between nodes.
+
+
+In real-world distributed systems, Partition Tolerance is mandatory, so we usually choose between Consistency and Availability depending on business needs.”
+
+
+
+
+---
+
+🎯 Add one example (important)
+
+> “For example, banking systems prefer CP (Consistency + Partition tolerance).
+Systems like social media prefer AP (Availability + Partition tolerance).”
+
+
+
+That sounds strong and practical.
+
+
+---
+
+Next question:
+
+👉 What is difference between Horizontal and Vertical scaling?
