@@ -1607,3 +1607,287 @@ Filters vs Interceptors
 
 
 Tell me which one to attack next.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+..
+.
+.
+.
+.
+
+Good. This is very important for backend interviews.
+
+I’ll keep it short, simple, and production-focused.
+
+
+---
+
+🔥 HTTP Methods (Most Commonly Used Today)
+
+1️⃣ GET
+
+Used to fetch data.
+
+Example:
+
+GET /users/10
+
+✔ Should NOT modify data
+✔ Safe
+✔ Idempotent
+
+Meaning: Calling it 1 time or 100 times → same result, no side effects.
+
+
+---
+
+2️⃣ POST
+
+Used to create new resource.
+
+Example:
+
+POST /orders
+
+Usually: ❌ Not idempotent
+
+Why? Because: Calling it twice → creates 2 orders.
+
+
+---
+
+3️⃣ PUT
+
+Used to update or replace resource completely.
+
+Example:
+
+PUT /users/10
+
+✔ Idempotent
+
+Calling:
+
+PUT /users/10 {name: "A"}
+
+multiple times → same final state.
+
+
+---
+
+4️⃣ PATCH
+
+Used to partially update resource.
+
+Example:
+
+PATCH /users/10 {email: "..."}
+
+Usually idempotent if implemented correctly.
+
+
+---
+
+5️⃣ DELETE
+
+Used to delete resource.
+
+✔ Idempotent
+Deleting same resource multiple times → same result (deleted).
+
+
+---
+
+🔥 What is Idempotent?
+
+Idempotent means:
+
+> Performing the same operation multiple times results in the same final state.
+
+
+
+
+---
+
+✔ GET → Idempotent
+
+✔ PUT → Idempotent
+
+✔ DELETE → Idempotent
+
+❌ POST → Not idempotent (by default)
+
+
+---
+
+🔥 Why POST is Not Idempotent?
+
+Example:
+
+POST /orders
+
+If client retries due to timeout:
+
+Server may create 2 orders.
+
+
+Problem in:
+
+Payments
+
+Order creation
+
+Transactions
+
+
+
+---
+
+🔥 How to Make POST Idempotent?
+
+We use:
+
+✅ Idempotency Key
+
+Client generates a unique ID (UUID).
+
+Example:
+
+Idempotency-Key: 123e4567-e89b-12d3-a456-426614174000
+
+
+---
+
+🔹 How It Works Internally
+
+1. Client generates UUID
+
+
+2. Sends it in header with POST request
+
+
+3. Server stores:
+
+Request ID
+
+Response
+
+Expiration time (TTL)
+
+
+
+4. If same request ID comes again:
+
+Server returns stored response
+
+Does NOT create new resource
+
+
+
+
+
+---
+
+🔥 What is "Store request id with expiration"?
+
+Server stores:
+
+request_id	response	created_at
+
+
+
+After some time (e.g., 24 hours):
+
+Expire old keys
+
+Clean up storage
+
+
+This prevents DB from growing forever.
+
+
+---
+
+🔥 What is Client Generated UUID?
+
+UUID = Universally Unique Identifier
+
+Example:
+
+550e8400-e29b-41d4-a716-446655440000
+
+Client generates it before sending POST.
+
+Why client? Because:
+
+Server cannot detect retries easily
+
+Client knows retry happened
+
+
+
+---
+
+🔥 Real Production Use
+
+Used in:
+
+Payment systems (Stripe)
+
+Order processing
+
+Financial transactions
+
+Distributed systems
+
+
+Very common in modern APIs.
+
+
+---
+
+🔥 Interview-Level Answer (Clean)
+
+If asked:
+
+> How do you make POST idempotent?
+
+
+
+Answer:
+
+> By using an Idempotency-Key header where the client sends a unique UUID. The server stores that request ID along with the response and returns the same response if the same key is received again, preventing duplicate resource creation.
+
+
+
+Short. Clear. Mature.
+
+
+---
+
+If you want next:
+
+Difference between PUT vs PATCH deeply
+
+When to use 200 vs 201 vs 204
+
+REST best practices
+
+Or system design around idempotency in distributed systems
+
+
+Tell me.
